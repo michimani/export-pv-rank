@@ -10,6 +10,8 @@ This is a AWS CDK application that fetch page views from Google Analytics and ex
 - Export it as a JSON object to an Amazon S3 bucket.
 - Use Amazon EventBridge scheduling rules to do this on a regular basis.
 
+![Architecture](./docs/architecture.jpg)
+
 # Preparing
 
 ## Install tools
