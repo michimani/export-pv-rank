@@ -1,0 +1,14 @@
+{
+  "lambda": {
+    "env": {
+      "client_secret_ssm_key": "google-client-secret",
+      "view_id": "00000000",
+      "out_s3_bucket": "<aleady-exists-your-bucket>",
+      "out_json_key": "data/rank.json",
+      "site_base_url": "<your-site-base-url>"
+    }
+  },
+  "event_bridge": {
+    "cron_expression": "0 15 * * ? *"
+  }
+}
