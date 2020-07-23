@@ -133,9 +133,11 @@ def report_to_rank(report, count=5):
     try:
         for rt in rank_tmp:
             post_url = SITE_BASE_URL + rt['page_path']
+            post_title, post_date = get_post_title_and_date(post_url)
             rank.append({
                 'post_url': post_url,
-                'post_title': get_post_title(post_url)})
+                'post_title': post_title,
+                'post_date': post_date})
     except Exception:
         print('An error occured in getting post title process.')
         print(traceback.format_exc())
@@ -143,13 +145,13 @@ def report_to_rank(report, count=5):
     return rank
 
 
-def get_post_title(post_url):
-    # type: (str) -> str
+def get_post_title_and_date(post_url):
+    # type: (str) -> (str, str)
     """ Get post title from post url
     Args:
         post_url: URL of the post
     Returns:
-        string
+        string, string
     """
     post_title = ''
 
@@ -157,11 +159,13 @@ def get_post_title(post_url):
         res = requests.get(post_url)
         body = res.text
         post_title = re.sub(r'[\s\S]+<title>(.*)<\/title>[\s\S]+', r'\1', body)
+        post_date = re.sub(
+            r'[\s\S]+<time class="dt-published" datetime="(\d{4}-\d{2}-\d{2}).*">[\s\S]+', r'\1', body)
     except Exception:
         print(f'Failed to get post title of "{post_url}"')
         print(traceback.format_exc())
 
-    return post_title
+    return post_title, post_date
 
 
 def put_to_s3(data, key):
