@@ -15,7 +15,7 @@ export class ExportPvRankStack extends cdk.Stack {
     // Lambda function
     const lambdaFn = new lambda.Function(this, 'fetchRank', {
       code: new lambda.AssetCode('lambda/dist'),
-      runtime: lambda.Runtime.PYTHON_3_7,
+      runtime: lambda.Runtime.PYTHON_3_8,
       handler: 'fetch_rank.main',
       timeout: cdk.Duration.seconds(300),
       environment: {
