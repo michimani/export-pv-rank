@@ -102,6 +102,10 @@ def calc(response):
             calc_res[page_path] = page_view
 
     for path in calc_res:
+        # skip top page
+        if path == '' or path == '/':
+            continue
+
         pv_summary.append({
             'page_path': path,
             'page_views': calc_res[path]
@@ -154,6 +158,7 @@ def get_post_title_and_date(post_url):
         string, string
     """
     post_title = ''
+    post_date = ''
 
     try:
         res = requests.get(post_url)
@@ -161,6 +166,8 @@ def get_post_title_and_date(post_url):
         post_title = re.sub(r'[\s\S]+<title>(.*)<\/title>[\s\S]+', r'\1', body)
         post_date = re.sub(
             r'[\s\S]+<time class="dt-published" datetime="(\d{4}-\d{2}-\d{2}).*">[\s\S]+', r'\1', body)
+        if re.search(r'^\d{4}-\d{2}-\d{2}$', post_date) is None:
+            post_date = ''
     except Exception:
         print(f'Failed to get post title of "{post_url}"')
         print(traceback.format_exc())
