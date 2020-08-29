@@ -20,14 +20,14 @@ This is a AWS CDK application that fetch page views from Google Analytics and ex
 
   ```bash
   $ aws --version
-  aws-cli/1.18.97 Python/3.7.7 Darwin/19.5.0 botocore/1.17.20
+  aws-cli/1.18.128 Python/3.8.5 Darwin/19.6.0 botocore/1.17.51
   ```
   
   Or, version 2.x.
 
   ```bash
   $ aws --version
-  aws-cli/2.0.30 Python/3.7.4 Darwin/19.5.0 botocore/2.0.0dev34
+  aws-cli/2.0.44 Python/3.7.4 Darwin/19.6.0 exe/x86_64
   ```
 - jq
 
