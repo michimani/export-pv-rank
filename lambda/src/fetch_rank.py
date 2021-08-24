@@ -44,6 +44,7 @@ def initialize_analyticsreporting():
     Returns:
       An authorized Analytics Reporting API V4 service object.
     """
+    logger.info('initialize analytics reporting')
     client_secret_string = get_ssm_param(CLIENT_SECRET_SSM_KEY)
 
     client_secret = json.loads(client_secret_string)
@@ -65,6 +66,7 @@ def get_report(analytics):
     Returns:
       The Analytics Reporting API V4 response.
     """
+    logger.info('get report')
     return analytics.reports().batchGet(
         body={
             'reportRequests': [
@@ -84,6 +86,7 @@ def calc(response):
     Args:
         response: The Analytics Reporting API V4 response.
     """
+    logger.info('calculate page views')
     calc_res = dict()
     pv_summary = []
     report = response.get('reports', [])[0]
@@ -127,7 +130,7 @@ def report_to_rank(report, count=5):
     Returns:
         list
     """
-
+    logger.info('convert report data to ranking data')
     if count == 0 or len(report) < count:
         count = 5
 
@@ -157,6 +160,8 @@ def get_post_title_and_date(post_url):
     Returns:
         string, string
     """
+
+    logger.info('get post title from post url: ' + post_url)
     post_title = ''
     post_date = ''
 
@@ -165,7 +170,7 @@ def get_post_title_and_date(post_url):
         body = res.text
         post_title = re.sub(r'[\s\S]+<title>(.*)<\/title>[\s\S]+', r'\1', body)
         post_date = re.sub(
-            r'[\s\S]+<time class="dt-published" datetime="(\d{4}-\d{2}-\d{2}).*">[\s\S]+', r'\1', body)
+            r'[\s\S]+<span class="sub">(\d{4}-\d{2}-\d{2})<\/span>[\s\S]+', r'\1', body)
         if re.search(r'^\d{4}-\d{2}-\d{2}$', post_date) is None:
             post_date = ''
     except Exception:
@@ -183,6 +188,7 @@ def put_to_s3(data, key):
         key: object key
     """
 
+    logger.info('put object to S3')
     try:
         s3obj = s3.Object(OUT_S3_BUCKET, key)
         body = json.dumps(data, ensure_ascii=False)
