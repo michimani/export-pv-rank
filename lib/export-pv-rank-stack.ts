@@ -17,7 +17,7 @@ export class ExportPvRankStack extends cdk.Stack {
       code: new lambda.AssetCode('lambda/dist'),
       runtime: lambda.Runtime.PYTHON_3_8,
       handler: 'fetch_rank.main',
-      timeout: cdk.Duration.seconds(300),
+      timeout: cdk.Duration.seconds(600),
       environment: {
         'CLIENT_SECRET_SSM_KEY': stackConfig['lambda']['env']['client_secret_ssm_key'],
         'VIEW_ID': stackConfig['lambda']['env']['view_id'],

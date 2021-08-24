@@ -79,7 +79,7 @@ def get_report(analytics):
 
 
 def calc(response):
-    # type: (dict) -> ()
+    # type: (dict) -> list
     """Calculate page views of each page path.
     Args:
         response: The Analytics Reporting API V4 response.
@@ -119,7 +119,7 @@ def calc(response):
 
 
 def report_to_rank(report, count=5):
-    # type: (list) -> list
+    # type: (list, int) -> list
     """ Convert report data to ranking data
     Args:
         report: list object to convert
@@ -150,7 +150,7 @@ def report_to_rank(report, count=5):
 
 
 def get_post_title_and_date(post_url):
-    # type: (str) -> (str, str)
+    # type: (str) -> str
     """ Get post title from post url
     Args:
         post_url: URL of the post
@@ -176,7 +176,7 @@ def get_post_title_and_date(post_url):
 
 
 def put_to_s3(data, key):
-    # type: (dict, str) -> ()
+    # type: (dict, str) -> None
     """ Put object to S3 bucket
     Args:
         data: dict or list object to put as JSON.
